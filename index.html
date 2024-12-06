@@ -223,9 +223,44 @@ body {
   padding-top: 2rem; /* Added padding to the top */
 }
 
+.quick-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1rem auto;
+  max-width: 600px;
+  padding: 0 1rem;
+}
+
+.quick-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--card-bg);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.quick-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: var(--primary);
+  color: white;
+}
+
+.quick-link-icon {
+  width: 24px;
+  height: 24px;
+}
+
 .filters-container {
   max-width: 600px;
-  margin: 20px auto; /* Changed from 0 auto to add top margin */
+  margin: 10px auto; /* Updated margins for filters container */
   padding: 0 1rem;
 }
 
@@ -313,6 +348,16 @@ body {
 @media (max-width: 768px) {
   .filter-options {
     grid-template-columns: 1fr;
+  }
+  
+  .quick-links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .quick-link {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -829,6 +874,23 @@ body {
 .search-input {
   display: block;
 }
+
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: white;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1000;
+  animation: fall linear forwards;
+  text-shadow: 0 0 3px rgba(0,0,0,0.1);
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(105vh) rotate(360deg);
+  }
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -969,7 +1031,21 @@ body {
   </section>
 
   <div id="batchContainer" class="batch-container">
-    
+    <div class="quick-links">
+      <a href="https://quizardv2.dev-boi.xyz/" class="quick-link" target="_blank">
+        <svg class="quick-link-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 6c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V6zm2 0v12h14V6H5zm2 2h10v2H7V8zm0 4h10v2H7v-2z"/>
+        </svg>
+        Test Series
+      </a>
+      <a href="https://freedownloads.dishapublication.com/" class="quick-link study-materials" target="_blank">
+        <svg class="quick-link-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+        </svg>
+        Study Material
+      </a>
+    </div>
+
     <div class="filters-container">
       <button id="filterToggle" class="filter-toggle">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -1460,6 +1536,38 @@ body {
           }
         });
       });
+    });
+
+    function createSnowfall() {
+      const snowflakes = '❅❆*';
+      const container = document.body;
+      
+      function createSnowflake() {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        snowflake.style.opacity = Math.random();
+        snowflake.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        snowflake.style.filter = `blur(${Math.random() * 2}px)`;
+        snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        snowflake.innerText = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+        
+        container.appendChild(snowflake);
+
+        // Remove snowflake after animation ends
+        snowflake.addEventListener('animationend', () => {
+          snowflake.remove();
+        });
+      }
+
+      // Create snowflakes at intervals
+      setInterval(createSnowflake, 100);
+    }
+
+    // Start snowfall when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      createSnowfall();
+      // ... keep existing DOMContentLoaded code ...
     });
   </script>
 </body></html>
